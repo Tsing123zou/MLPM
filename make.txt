@@ -1,0 +1,89 @@
+g++ -std=c++20 -o pm \
+    main.cpp \
+    src/layout.cpp \
+    src/read.cpp \
+    src/check.cpp \
+    src/test.cpp \
+    src/qtreebase.cpp \
+    src/msqtree.cpp \
+    src/config.cpp \
+    -Iinclude \
+    -I3rd/mio/include \
+    -I3rd/tbb/include \
+    -I3rd/tbb/include/oneapi \
+    -I3rd/gperftools/include \
+    -I3rd/jemalloc/include \
+    -I3rd/clipper/include/clipper2 \
+    -L3rd/clipper/lib \
+    -L3rd/tbb/lib \
+    -lClipper2 \
+    -ldl
+
+g++ -std=c++20 -gdwarf-4 -O2 -g -o PatternMatch     main.cpp     src/layout.cpp     src/read.cpp     src/check.cpp     src/test.cpp     src/qtreebase.cpp     src/msqtree.cpp     src/config.cpp     -Iinclude     -I3rd/mio/include     -I3rd/tbb/include     -I3rd/gperftools/include     -I3rd/jemalloc/include     -I3rd/clipper/include     -L3rd/clipper/lib     -lClipper2     -ldl
+
+g++ -std=c++20 -o PatternMatch     main.cpp     src/layout.cpp     src/read.cpp     src/check.cpp     src/test.cpp     src/qtreebase.cpp     src/msqtree.cpp     src/config.cpp     -Iinclude     -I3rd/mio/include     -I3rd/tbb/include     -I3rd/gperftools/include     -I3rd/jemalloc/include     -I3rd/clipper/include     -L3rd/clipper/lib     -lClipper2     -ldl
+
+set args -layout ../large/large_layout.txt -lib ../large/large_pattern.txt -output ../large/res.txt
+run
+backtrace
+
+./PatternMatch -layout ../large/large_layout.txt -lib ../large/large_pattern.txt -output ../large/res.txt
+
+./PatternMatch -layout ../small/small_case.txt -lib ../small/small_pattern.txt -output ../small/res.txt
+
+python3 pmJudge.py  -res ../small/res.txt -ans ../small/small_answer.txt
+
+python3 pmJudge.py  -res ../large/res.txt -ans ../large/large_answer.txt
+
+./pm -layout ~/public/large/large_layout.txt -lib ~/public/large/large_pattern.txt -thread 1 -output ~/public/large/res.txt
+
+./pm -layout ~/public/small/small_case.txt -lib ~/public/small/small_pattern.txt -thread 1 -output ~/public/small/res.txt
+
+./pm -layout ~/public/large/large_layout.txt -lib ~/public/large/large_pattern.txt -thread 8 -output ~/public/large/res.txt
+
+./pm -layout ~/public/small/small_case.txt -lib ~/public/small/small_pattern.txt -thread 8 -output ~/public/small/res.txt
+
+python3 ~/public/check_script/pmJudge.py -res ~/public/small/res.txt -ans ~/public/small/small_answer.txt
+
+python3 ~/public/check_script/pmJudge.py -res ~/public/large/res.txt -ans ~/public/large/large_answer.txt
+
+cmake .. -DCMAKE_C_COMPILER=/usr/local/gcc-13.2.0/bin/gcc -DCMAKE_CXX_COMPILER=/usr/local/gcc-13.2.0/bin/g++
+make
+
+rm -rf CMakeCache.txt CMakeFiles/
+
+
+./pm -layout ~/MLPM_thread_test/large/large_layout.txt -lib ~/MLPM_thread_test/large/large_pattern.txt -thread 1 -output ~/MLPM_thread_test/large/res.txt
+
+
+./pm -layout ~/MLPM_thread_test/large/large_layout.txt -lib ~/MLPM_thread_test/large/large_pattern.txt -thread 1 -output ~/MLPM_thread_test/large/res.txt
+
+cd ..
+rm -r build
+mkdir build
+cd build
+cmake ..
+make
+make > build.log 2>&1
+
+./pm -layout /home/gbzou/MLPM_thread_final/large/large_layout.txt -lib /home/gbzou/MLPM_thread_final/large/large_pattern.txt -thread 1 -output /home/gbzou/MLPM_thread_final/large/res.txt
+
+
+./pm -layout /home/gbzou/MLPM_thread_final/large/large_layout.txt -lib /home/gbzou/MLPM_thread_final/large/large_pattern.txt -thread 8 -output /home/gbzou/MLPM_thread_final/large/res.txt
+
+
+g++ -std=c++20 -o pm \
+    main.cpp \
+    src/layout.cpp \
+    src/read.cpp \
+    src/check.cpp \
+    src/test.cpp \
+    src/qtreebase.cpp \
+    src/msqtree.cpp \
+    src/config.cpp \
+    -Iinclude \
+    -I3rd/mio/include \
+    -I3rd/clipper/include/clipper2 \
+    -L3rd/clipper/lib \
+    -lClipper2 \
+    -ldl
